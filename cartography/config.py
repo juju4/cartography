@@ -123,6 +123,10 @@ class Config:
         mde_client_id=None,
         mde_client_secret=None,
         mde_api_url=None,
+        rapid7_user=None,
+        rapid7_password=None,
+        rapid7_server_url=None,
+        rapid7_verify_cert=None,
     ):
         self.neo4j_uri = neo4j_uri
         self.neo4j_user = neo4j_user
@@ -166,3 +170,7 @@ class Config:
         self.mde_client_id = mde_client_id
         self.mde_client_secret = mde_client_secret
         self.mde_api_url = mde_api_url
+        self.rapid7_user = rapid7_user,
+        self.rapid7_password = rapid7_password,
+        self.rapid7_server_url = rapid7_server_url,
+        self.rapid7_verify_cert = rapid7_verify_cert,
