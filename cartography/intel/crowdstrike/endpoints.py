@@ -29,6 +29,12 @@ def load_host_data(
 ) -> None:
     """
     Transform and load scan information
+
+    azure subscription id = service_provider_account_id
+    resource_group = zone_group but no AzureResourceGroup node
+    hostname =~ host (Falcon: Win host truncated to 15 chars, linux to 64 chars) - loose relationship?
+    resource_id = not available. partial reconstruct
+        /subscriptions/SUB/resourceGroups/RG/providers/Microsoft.Compute/virtualMachines/HOST
     """
     ingestion_cypher_query = """
     UNWIND $Hosts AS host
@@ -54,6 +60,7 @@ def load_host_data(
             h.platform_name = host.platform_name,
             h.service_provider = host.service_provider,
             h.service_provider_account_id = host.service_provider_account_id,
+            h.zone_group = host.zone_group,
             h.agent_version = host.agent_version,
             h.system_manufacturer = host.system_manufacturer,
             h.system_product_name = host.system_product_name,
@@ -67,6 +74,11 @@ def load_host_data(
             h.tags = host.tags,
             h.modified_timestamp = host.modified_timestamp,
             h.lastupdated = $update_tag
+        WITH h
+        MATCH (s:AzureSubscription{id: h.service_provider_account_id})
+        MERGE (s)-[r:CONTAINS]->(h)
+        ON CREATE SET r.firstseen = timestamp()
+        SET r.lastupdated = $update_tag
     """
     logger.info(f"Loading {len(data)} crowdstrike hosts.")
     neo4j_session.run(
