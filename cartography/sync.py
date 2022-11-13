@@ -16,6 +16,7 @@ import cartography.intel.analysis
 import cartography.intel.aws
 import cartography.intel.azure
 import cartography.intel.azureresourcegraph
+import cartography.intel.bmchelix
 import cartography.intel.create_indexes
 import cartography.intel.crowdstrike
 import cartography.intel.crxcavator.crxcavator
@@ -181,6 +182,7 @@ def build_default_sync() -> Sync:
         ('aws', cartography.intel.aws.start_aws_ingestion),
         ('azure', cartography.intel.azure.start_azure_ingestion),
         ('azureresourcegraph', cartography.intel.azureresourcegraph.start_azureresourcegraph_ingestion),
+        ('bmchelix', cartography.intel.bmchelix.start_bmchelix_ingestion),
         ('crowdstrike', cartography.intel.crowdstrike.start_crowdstrike_ingestion),
         ('mde', cartography.intel.mde.start_mde_ingestion),
         ('rapid7', cartography.intel.rapid7.start_rapid7_ingestion),
