@@ -15,6 +15,7 @@ import cartography.intel.activedirectory
 import cartography.intel.analysis
 import cartography.intel.aws
 import cartography.intel.azure
+import cartography.intel.azureresourcegraph
 import cartography.intel.create_indexes
 import cartography.intel.crowdstrike
 import cartography.intel.crxcavator.crxcavator
@@ -81,7 +82,7 @@ class Sync:
         :param config: Configuration for the sync run.
         """
         logger.info("Starting sync with update tag '%d'", config.update_tag)
-        with neo4j_driver.session() as neo4j_session:
+        with neo4j_driver.session(database=config.neo4j_database) as neo4j_session:
             for stage_name, stage_func in self._stages.items():
                 logger.info("Starting sync stage '%s'", stage_name)
                 try:
@@ -179,6 +180,7 @@ def build_default_sync() -> Sync:
         ('activedirectory', cartography.intel.activedirectory.start_activedirectory_ingestion),
         ('aws', cartography.intel.aws.start_aws_ingestion),
         ('azure', cartography.intel.azure.start_azure_ingestion),
+        ('azureresourcegraph', cartography.intel.azureresourcegraph.start_azureresourcegraph_ingestion),
         ('crowdstrike', cartography.intel.crowdstrike.start_crowdstrike_ingestion),
         ('mde', cartography.intel.mde.start_mde_ingestion),
         ('rapid7', cartography.intel.rapid7.start_rapid7_ingestion),
