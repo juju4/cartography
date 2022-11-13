@@ -30,6 +30,7 @@ import cartography.intel.mde
 import cartography.intel.oci
 import cartography.intel.okta
 import cartography.intel.rapid7
+import cartography.intel.sumologic
 from cartography.config import Config
 from cartography.stats import set_stats_client
 from cartography.util import STATUS_FAILURE
@@ -186,6 +187,7 @@ def build_default_sync() -> Sync:
         ('crowdstrike', cartography.intel.crowdstrike.start_crowdstrike_ingestion),
         ('mde', cartography.intel.mde.start_mde_ingestion),
         ('rapid7', cartography.intel.rapid7.start_rapid7_ingestion),
+        ('sumologic', cartography.intel.sumologic.start_sumologic_ingestion),
         ('gcp', cartography.intel.gcp.start_gcp_ingestion),
         ('gsuite', cartography.intel.gsuite.start_gsuite_ingestion),
         ('crxcavator', cartography.intel.crxcavator.start_extension_ingestion),

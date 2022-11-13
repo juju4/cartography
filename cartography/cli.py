@@ -515,6 +515,30 @@ class CLI:
             ),
         )
         parser.add_argument(
+            '--sumologic-access-id',
+            type=str,
+            default=None,
+            help=(
+                'The sumologic access id for authentication.'
+            ),
+        )
+        parser.add_argument(
+            '--sumologic-access-key-env-var',
+            type=str,
+            default=None,
+            help=(
+                'The name of environment variable containing the sumologic access key for authentication.'
+            ),
+        )
+        parser.add_argument(
+            '--sumologic-api-url',
+            type=str,
+            default=None,
+            help=(
+                'The url of the target Sumologic API instance - https://help.sumologic.com/docs/api/getting-started/#sumo-logic-endpoints-by-deployment-and-firewall-security.'
+            ),
+        )
+        parser.add_argument(
             '--activedirectory-name',
             type=str,
             default=None,
@@ -724,6 +748,15 @@ class CLI:
             config.rapid7_password = os.environ.get(config.rapid7_password_env_var)
         else:
             config.rapid7_password = None
+
+        # Sumologic config
+        if config.sumologic_access_key_env_var:
+            logger.debug(
+                f"Reading password for sumologic from environment variable {config.sumologic_access_key_env_var}",
+            )
+            config.sumologic_access_key = os.environ.get(config.sumologic_access_key_env_var)
+        else:
+            config.sumologic_access_key = None
 
         # Run cartography
         try:
