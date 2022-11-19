@@ -518,57 +518,31 @@ class CLI:
             type=str,
             default=None,
             help=(
-                'The url of the Rapid7 InsightsVM server.'
+                'The url of the Rapid7 InsightsVM server. Required in all Rapid7 data retrieval.'
             ),
         )
-        # FIXME! not passed correctly
         parser.add_argument(
             '--rapid7-verify-cert',
-            type=bool,
-            default=True,
+            type=str,
+            default="True",
             help=(
                 'Validate https certificate of Rapid7 InsightsVM server.'
             ),
         )
         parser.add_argument(
-            '--sumologic-access-id',
+            '--rapid7-report-id',
             type=str,
             default=None,
             help=(
-                'The sumologic access id for authentication.'
+                'Rapid7 report id if downloading report option. Use a negative id to list accessible reports.'
             ),
         )
         parser.add_argument(
-            '--sumologic-access-key-env-var',
+            '--rapid7-dirpath',
             type=str,
             default=None,
             help=(
-                'The name of environment variable containing the sumologic access key for authentication.'
-            ),
-        )
-        parser.add_argument(
-            '--sumologic-api-url',
-            type=str,
-            default=None,
-            help=(
-                'The url of the target Sumologic API instance - https://help.sumologic.com/'
-                'docs/api/getting-started/#sumo-logic-endpoints-by-deployment-and-firewall-security.'
-            ),
-        )
-        parser.add_argument(
-            '--activedirectory-name',
-            type=str,
-            default=None,
-            help=(
-                'Name of used Active Directory name for labelling.'
-            ),
-        )
-        parser.add_argument(
-            '--activedirectory-dirpath',
-            type=str,
-            default=None,
-            help=(
-                'Directory path where to find ActiveDirectory data from BloodHound and similar tools.'
+                'Directory path where to find Rapid7 csv data if using that option.'
             ),
         )
         parser.add_argument(
