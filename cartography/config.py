@@ -98,6 +98,8 @@ class Config:
         azure_tenant_id=None,
         azure_client_id=None,
         azure_client_secret=None,
+        azuremonitor_workspace_name=None,
+        azuremonitor_workspace_id=None,
         azureresourcegraph_tenant_id=None,
         azureresourcegraph_client_id=None,
         azureresourcegraph_client_secret=None,
@@ -158,6 +160,8 @@ class Config:
         self.azure_tenant_id = azure_tenant_id
         self.azure_client_id = azure_client_id
         self.azure_client_secret = azure_client_secret
+        self.azuremonitor_workspace_name = azuremonitor_workspace_name
+        self.azuremonitor_workspace_id = azuremonitor_workspace_id
         self.azureresourcegraph_tenant_id = azureresourcegraph_tenant_id
         self.azureresourcegraph_client_id = azureresourcegraph_client_id
         self.azureresourcegraph_client_secret = azureresourcegraph_client_secret

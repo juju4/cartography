@@ -15,6 +15,7 @@ import cartography.intel.activedirectory
 import cartography.intel.analysis
 import cartography.intel.aws
 import cartography.intel.azure
+import cartography.intel.azuremonitor
 import cartography.intel.azureresourcegraph
 import cartography.intel.bmchelix
 import cartography.intel.create_indexes
@@ -182,6 +183,7 @@ def build_default_sync() -> Sync:
         ('activedirectory', cartography.intel.activedirectory.start_activedirectory_ingestion),
         ('aws', cartography.intel.aws.start_aws_ingestion),
         ('azure', cartography.intel.azure.start_azure_ingestion),
+        ('azuremonitor', cartography.intel.azuremonitor.start_azuremonitor_ingestion),
         ('azureresourcegraph', cartography.intel.azureresourcegraph.start_azureresourcegraph_ingestion),
         ('bmchelix', cartography.intel.bmchelix.start_bmchelix_ingestion),
         ('crowdstrike', cartography.intel.crowdstrike.start_crowdstrike_ingestion),
