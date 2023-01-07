@@ -736,12 +736,6 @@ class CLI:
         else:
             config.mde_client_secret = None
 
-        if config.experimental_neo4j_4x_support:
-            logger.warning(
-                'EXPERIMENTAL_NEO4J_4X_SUPPORT is now enabled by default,'
-                ' and this option will be removed when code hard-coded syntax upgrades are completed',
-            )
-
         if config.rapid7_password_env_var:
             logger.debug(
                 f"Reading password for rapid7 from environment variable {config.rapid7_password_env_var}",

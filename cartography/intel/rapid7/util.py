@@ -48,7 +48,7 @@ def extract_rg_from_resourceid(resourceid: str) -> str:
     return ""
 
 
-def extract_rapid7_configurations_subscriptionid(configurations: Any[str, List]) -> str:
+def extract_rapid7_configurations_subscriptionid(configurations) -> str:
     """
     Extract from json, specific keyvalue pair: azure subscription id
 
@@ -77,7 +77,7 @@ def extract_rapid7_configurations_subscriptionid(configurations: Any[str, List])
     return subscription_id
 
 
-def extract_rapid7_configurations_resourcegroup(configurations: Any[str, List]) -> str:
+def extract_rapid7_configurations_resourcegroup(configurations) -> str:
     """
     Extract from json, specific keyvalue pair: azure resource group
 
@@ -101,7 +101,7 @@ def extract_rapid7_configurations_resourcegroup(configurations: Any[str, List]) 
     return resource_group
 
 
-def extract_rapid7_configurations_resourceid(configurations: Any[str, List]) -> str:
+def extract_rapid7_configurations_resourceid(configurations) -> str:
     """
     Extract from json, specific keyvalue pair: azure resource id
 
@@ -125,7 +125,7 @@ def extract_rapid7_configurations_resourceid(configurations: Any[str, List]) -> 
     return resource_id
 
 
-def extract_rapid7_configurations_instanceid(configurations: Any[str, List]) -> str:
+def extract_rapid7_configurations_instanceid(configurations) -> str:
     """
     Extract from json, specific keyvalue pair: azure instance id
 
@@ -331,7 +331,8 @@ def rapid7_hosts_from_downloadreport(
         df_rapid7_tmp["short_hostname"] = df_rapid7_tmp["hostName"].str.lower()
         df_rapid7_tmp["short_hostname"].replace(r"\..*$", "", regex=True, inplace=True)
         df_rapid7_tmp["tool_last_seen"] = pandas.to_datetime(
-            df_rapid7_tmp["tool_last_seen"], format="%Y-%m-%d %H:%M:%S.%f",
+            df_rapid7_tmp["tool_last_seen"],
+            format="%Y-%m-%d %H:%M:%S.%f",
         ).dt.strftime("%Y-%m-%dT%H:%M:%S")
 
         logger.info("downloadReport final count %s", df_rapid7_tmp.shape[0])
@@ -394,9 +395,11 @@ def rapid7_hosts_from_reportfile(
     df_rapid7_tmp["short_hostname"] = df_rapid7_tmp["hostName"].str.lower()
     df_rapid7_tmp["short_hostname"].replace(r"\..*$", "", regex=True, inplace=True)
     df_rapid7_tmp["tool_last_seen"] = pandas.to_datetime(
-        df_rapid7_tmp["tool_last_seen"], format="%Y-%m-%d %H:%M:%S.%f",
+        df_rapid7_tmp["tool_last_seen"],
+        format="%Y-%m-%d %H:%M:%S.%f",
     ).dt.strftime("%Y-%m-%dT%H:%M:%S")
 
+    logger.info("Example df_rapid7_tmp[0]: %s", df_rapid7_tmp.iloc[:1].to_string())
     logger.info("Rapid7Hosts count final: %s", df_rapid7_tmp.shape[0])
 
     # Rotate file to avoid importing same twice
@@ -441,5 +444,9 @@ def rapid7_hosts(
         return rapid7_hosts_from_downloadreport(authorization)
 
     return rapid7_hosts_from_getassets(
-        authorization, limit, page, sort, nexpose_timeout,
+        authorization,
+        limit,
+        page,
+        sort,
+        nexpose_timeout,
     )
