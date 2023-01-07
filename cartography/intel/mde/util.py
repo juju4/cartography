@@ -26,6 +26,7 @@ def get_authorization(
 
     api_url: usually "https://api.securitycenter.microsoft.com"
     """
+    # nosec - B105
     aad_token = ""
     try:
         url = f"https://login.microsoftonline.com/{tenant_id}/oauth2/token"
@@ -42,6 +43,7 @@ def get_authorization(
         data = urllib.parse.urlencode(body).encode("utf-8")
 
         req = urllib.request.Request(url, data)
+        # nosemgrep
         response = urllib.request.urlopen(req)  # pylint: disable=consider-using-with
         json_response = json.loads(response.read())
         aad_token = json_response["access_token"]
@@ -52,7 +54,7 @@ def get_authorization(
     return aad_token
 
 
-def mde_hosts(
+def get_mde_hosts(
     authorization: str,
 ) -> array:
     """
@@ -129,7 +131,9 @@ def extract_rg_from_resourceid(resourceid: str) -> str:
     if type(resourceid) is str:
         try:
             match = re.search(
-                "/resourceGroups/(.*?)/providers/", resourceid, flags=re.IGNORECASE,
+                "/resourceGroups/(.*?)/providers/",
+                resourceid,
+                flags=re.IGNORECASE,
             )
             if match:
                 rg = match.group(1)
