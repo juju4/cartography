@@ -62,6 +62,7 @@ setup(
         "pandas>=1.5.1",
         "python-dateutil",
         "azure-monitor-query>=1.0.3",
+        "msticpy>=2.2.0",
     ],
     extras_require={
         ':python_version<"3.7"': [
