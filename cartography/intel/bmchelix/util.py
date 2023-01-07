@@ -12,7 +12,7 @@ import requests
 logger = logging.getLogger(__name__)
 
 
-def bmchelix_hosts(
+def get_bmchelix_hosts(
     authorization: Tuple[str, str, bool],
     limit: int = 1000,
     bmchelix_timeout: int = 60,
@@ -202,7 +202,8 @@ def bmchelix_hosts(
     return flatten_data
 
 
-def bmchelix_virtualmachines(
+# pylint: disable=too-many-statements
+def get_bmchelix_virtualmachines(
     authorization: Tuple[str, str, bool],
     limit: int = 1000,
     bmchelix_timeout: int = 60,
@@ -231,7 +232,8 @@ def bmchelix_virtualmachines(
         "custom_attributes as 'custom_attributes', "
         "tags,"
         "vm_type as 'VM Type', "
-        "#RunningSoftware:HostedSoftware:Host:CloudService.subscription_name as 'subscription_name', "
+        "#RunningSoftware:HostedSoftware:Host:CloudService.subscription_name as "
+        "'subscription_name', "
         "#RunningSoftware:HostedSoftware:Host:CloudService.subscription_id as 'subscription_id',"
         "cloud_id as 'resource_id', "
         "status as 'Status', state as 'vm_power_state', "
