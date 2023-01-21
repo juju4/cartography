@@ -63,7 +63,15 @@ def load_vms(neo4j_session: neo4j.Session, subscription_id: str, vm_list: List[D
 
     for vm in vm_list:
         if vm.get('storage_profile', {}).get('data_disks'):
-            load_vm_data_disks(neo4j_session, vm['id'], vm['storage_profile']['data_disks'], update_tag)
+            try:
+                load_vm_data_disks(neo4j_session, vm['id'], vm['storage_profile']['data_disks'], update_tag)
+            except Exception as exception:
+                logging.exception(
+                    "load_vms (vm.id %s, storage %s): %s",
+                    vm['id'],
+                    vm['storage_profile']['data_disks'],
+                    exception,
+                )
 
 
 def load_vm_data_disks(neo4j_session: neo4j.Session, vm_id: str, data_disks: List[Dict], update_tag: int) -> None:
