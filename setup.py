@@ -63,7 +63,7 @@ setup(
         "python-dateutil",
         "azure-monitor-query>=1.0.3",
         "msticpy[azure]>=2.2.0",
-        "sumologic-sdk>=1.1.13",
+        "sumologic-sdk>=0.1.13",
     ],
     extras_require={
         ':python_version<"3.7"': [
