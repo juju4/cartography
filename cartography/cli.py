@@ -556,12 +556,20 @@ class CLI:
             ),
         )
         parser.add_argument(
-            '--experimental-neo4j-4x-support',
-            default=False,
-            action='store_true',
+            '--gsuite-auth-method',
+            type=str,
+            default='delegated',
+            choices=['delegated', 'oauth'],
             help=(
-                'enable the experimental suppor for neo4j 4.x. Can also be enabled by environment variable. '
-                'See cartography.__init__.py'
+                'The method used by GSuite to authenticate. delegated is the legacy one.'
+            ),
+        )
+        parser.add_argument(
+            '--gsuite-tokens-env-var',
+            type=str,
+            default='GSUITE_GOOGLE_APPLICATION_CREDENTIALS',
+            help=(
+                'The name of environment variable containing secrets for GSuite authentication.'
             ),
         )
         return parser
@@ -752,6 +760,13 @@ class CLI:
             config.sumologic_access_key = os.environ.get(config.sumologic_access_key_env_var)
         else:
             config.sumologic_access_key = None
+
+        # GSuite config
+        if config.gsuite_tokens_env_var:
+            logger.debug(f"Reading config string for GSuite from environment variable {config.gsuite_tokens_env_var}")
+            config.gsuite_config = os.environ.get(config.gsuite_tokens_env_var)
+        else:
+            config.github_config = None
 
         # Run cartography
         try:
